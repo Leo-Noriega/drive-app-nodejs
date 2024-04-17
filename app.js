@@ -4,18 +4,16 @@ require("dotenv").config();
 const { connect } = require("./config/db-connection");
 const cors = require("cors");
 
+const app = express();
+
+app.use(cors());
+app.options('*', cors());
+
 const fileRouter = require("./routes/files");
 const userRouter = require("./routes/auth");
 
-const app = express();
-//admitir todos los origenes
-const corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200
-}
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
 
 app.use(fileUpload());
 app.use(express.json());
@@ -28,6 +26,8 @@ app.use(async (req, res, next) => {
 app.use("/files", fileRouter);
 app.use("/auth", userRouter);
 
-app.listen(3000, () => {
+const port = process.env.PORT;
+
+app.listen(port, () => {
   console.log("Server listening on port 3000");
 });

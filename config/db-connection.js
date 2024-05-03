@@ -13,5 +13,5 @@ async function connect() {
 	return dbConnection;
 }
 
-module.exports = {connect};
+module.exports = { connect };
 
